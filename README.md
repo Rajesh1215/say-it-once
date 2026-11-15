@@ -16,9 +16,9 @@ Opening `index.html` straight from disk works too.
 
 ## The media
 
-`media/` holds the 11 rendered shorts (1080×1920), the raw take used in "before / after" (`raw-clip4.mp4`), and a
-poster image for each. The `.mp4` files are not in git (300+ MB); copy them from `~/Desktop/landing-shorts/` and
-`~/Downloads/4.mp4` (as `raw-clip4.mp4`). For deployment, `scripts/make-web-media.sh` makes 720p web copies.
+`media/` holds 720p web copies (76 MB in all) of the 11 shorts, the raw recordings shown in "raw → edited" and
+"before / after", and a poster for each. The 1080p masters are kept outside git (`~/Desktop/landing-shorts/`);
+`scripts/make-web-media.sh` makes web copies from masters.
 
 **Before going public:** check you have the rights to every clip (most are stock or downloaded), and that the AI
 voices (UPI, 5 AM) are fine to show.
