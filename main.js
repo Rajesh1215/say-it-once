@@ -16,6 +16,19 @@
     try { navigator.sendBeacon(SITE.hitEndpoint, new Blob([body], { type: 'text/plain' })); } catch { /* never in the visitor's way */ }
   };
   track('view');
+  // how far they got: scroll depth, the sections they reached, the form, their files, and how long they stayed
+  const seen = new Set();
+  const once = (key, event, detail) => { if (!seen.has(key)) { seen.add(key); track(event, detail); } };
+  let deepest = 0;
+  addEventListener('scroll', () => {
+    const d = (scrollY + innerHeight) / document.documentElement.scrollHeight;
+    deepest = Math.max(deepest, d);
+    [25, 50, 75, 100].forEach(m => { if (d >= m / 100 - 0.02) once(`s${m}`, 'scroll', `${m}%`); });
+  }, { passive: true });
+  const sections = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) once(`sec-${e.target.id}`, 'section', e.target.id); }), { threshold: 0.35 });
+  ['pairs', 'does', 'looks', 'access'].forEach(id => { const el = document.getElementById(id); if (el) sections.observe(el); });
+  const started = Date.now();
+  addEventListener('pagehide', () => track('leave', `${Math.round((Date.now() - started) / 1000)} s · ${Math.round(deepest * 100)}% down`));
   document.addEventListener('click', e => { if (e.target.closest('a[href="#access"]')) track('cta'); });
 
   // every muted preview plays only while it is on screen (light on a phone; muted autoplay is allowed everywhere)
@@ -216,6 +229,12 @@
     ['dragenter', 'dragover'].forEach(ev => zone.addEventListener(ev, () => zone.classList.add('over')));
     ['dragleave', 'drop'].forEach(ev => zone.addEventListener(ev, () => zone.classList.remove('over')));
   });
+  // the form: that they began (which field — never what they typed), and the files they picked
+  form.addEventListener('focusin', e => { const n = e.target.name; if (n && n !== 'website') once(`f-${n}`, 'form', n); });
+  ['recording', 'media'].forEach(n => form.elements[n].addEventListener('change', e => {
+    const fs = [...e.target.files];
+    if (fs.length) track('files', `${n}: ${fs.length} · ${(fs.reduce((s, f) => s + f.size, 0) / 1048576).toFixed(1)} MB`);
+  }));
   const wantsEdit = () => form.elements.recording.files.length > 0 || form.elements.link.value.trim() !== '';
   const syncButton = () => { submit.textContent = wantsEdit() ? 'Get early access + edit my clip' : 'Get early access'; };
   form.addEventListener('input', syncButton); form.addEventListener('change', syncButton);
@@ -252,11 +271,11 @@
     ev.preventDefault();
     const el = form.elements;
     const name = el['name'].value.trim(), email = el.email.value.trim();
-    if (!name) { note.textContent = 'Add your name.'; el['name'].focus(); return; }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { note.textContent = 'That email doesn’t look right — check it and try again.'; el.email.focus(); return; }
+    if (!name) { note.textContent = 'Add your name.'; el['name'].focus(); track('error', 'no name'); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { note.textContent = 'That email doesn’t look right — check it and try again.'; el.email.focus(); track('error', 'bad email'); return; }
     const files = [...el.recording.files, ...el.media.files];
     if (files.some(f => f.size > MAX_FILE)) { note.textContent = 'One of the files is over 500 MB — send a shorter clip or a link.'; return; }
-    if (wantsEdit() && !el.consent.checked) { note.textContent = 'To edit your clip, tick the box confirming it’s yours to share.'; el.consent.focus(); return; }
+    if (wantsEdit() && !el.consent.checked) { note.textContent = 'To edit your clip, tick the box confirming it’s yours to share.'; el.consent.focus(); track('error', 'no consent'); return; }
     if (!SITE.formEndpoint || (files.length && !SITE.uploadEndpoint)) {
       note.textContent = 'The sign-up isn’t connected yet — set formEndpoint and uploadEndpoint in data/site-data.js.'; return;
     }
@@ -274,6 +293,7 @@
         }
         return out;
       };
+      if (all.length) track('upload', `start · ${all.length} file(s) · ${(total / 1048576).toFixed(1)} MB`);
       const recording = wantsEdit() ? {
         files: await up([...el.recording.files]), link: el.link.value.trim(), instructions: el.instructions.value.trim(),
         media: await up([...el.media.files]), consent: el.consent.checked } : null;
@@ -291,6 +311,7 @@
       idle(); form.hidden = true; $('#done').hidden = false; $('#done').focus();
       $('#again').addEventListener('click', () => { form.reset(); ['#files-recording', '#files-media'].forEach(l => { $(l).innerHTML = ''; }); $('#done').hidden = true; form.hidden = false; idle(); });
     } catch (err) {
+      track('error', `send failed: ${String(err && err.message || err).slice(0, 60)}`);
       note.textContent = err && err.message && !/^\d+$/.test(err.message) && !/fetch/i.test(err.message)
         ? `That didn’t go through: ${err.message}.` : 'That didn’t go through — try again in a moment.';
       idle();

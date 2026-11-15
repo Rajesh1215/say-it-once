@@ -149,7 +149,7 @@ def _zones() -> dict[str, str]:
 ZONES = _zones()
 SALT = os.environ.get('SALT', 'aether')
 BOT = re.compile(r'bot|crawl|spider|slurp|preview|facebookexternalhit|whatsapp|bingpreview|headless', re.I)
-EVENTS = {'view', 'cta', 'signup', 'signup_clip', 'more', 'example', 'sound'}
+EVENTS = {'view', 'cta', 'signup', 'signup_clip', 'more', 'example', 'sound', 'scroll', 'section', 'form', 'files', 'upload', 'error', 'leave'}
 
 
 def _device(ua: str) -> tuple[str, str]:
