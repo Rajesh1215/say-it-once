@@ -147,10 +147,12 @@
         <label class="trap" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off" /></label>
         <div class="submit-row">
           <button class="btn" type="submit" id="submit">Get early access</button>
+          <div class="progress" id="progress" hidden><div class="progress-track"><i id="progress-bar"></i></div><span id="progress-label" class="sr" aria-live="polite"></span></div>
           <p class="form-note" id="form-note" role="status"></p>
         </div>
         <p class="privacy">We only use your details to contact you about Aether. Your clip is never published without asking you.</p>
       </form>
+      <div class="done" id="done" tabindex="-1" role="status" hidden></div>
     </section>
   </main>
 

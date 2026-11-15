@@ -350,3 +350,22 @@ h1 .line { display: block; }
 .brand .mark-img { width: 26px; height: 26px; display: block; }
 .trap { position: absolute !important; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .privacy { margin: 4px 0 0; font-size: 13px; color: var(--faint); }
+
+/* the submit button while it works, the upload bar, and the confirmation that replaces the form */
+.btn.busy { cursor: progress; opacity: 1; }
+.btn:disabled { cursor: progress; }
+.spin { width: 16px; height: 16px; border-radius: 50%; border: 2.5px solid color-mix(in srgb, var(--kept-ink) 30%, transparent);
+  border-top-color: var(--kept-ink); animation: spin .8s linear infinite; display: inline-block; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.progress { flex: 1; min-width: 160px; }
+.progress[hidden] { display: none; }
+.progress-track { height: 6px; border-radius: 999px; background: var(--line); overflow: hidden; }
+.progress-track i { display: block; height: 100%; width: 0; background: var(--kept); border-radius: 999px; transition: width .2s ease; }
+.done { width: 100%; max-width: 560px; margin-top: 8px; border: 1px solid color-mix(in srgb, var(--kept) 40%, var(--line)); border-radius: 22px;
+  background: color-mix(in srgb, var(--kept) 6%, var(--panel)); padding: 32px 28px; display: grid; justify-items: center; gap: 12px; text-align: center; outline: none; }
+.done[hidden] { display: none; }
+.done .tick { width: 56px; height: 56px; border-radius: 50%; background: var(--kept); color: var(--kept-ink); display: grid; place-items: center; font: 800 28px/1 var(--sans); }
+.done h3 { font-size: 28px; }
+.done p { margin: 0; color: var(--muted); max-width: 42ch; }
+.done b { color: var(--ink); font-weight: 600; }
+@media (prefers-reduced-motion: reduce) { .spin { animation-duration: 2.4s; } }

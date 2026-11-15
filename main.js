@@ -208,15 +208,32 @@
   form.addEventListener('input', syncButton); form.addEventListener('change', syncButton);
 
   // a file goes straight to storage through a signed URL the upload endpoint hands out
-  async function upload(file) {
+  // a file goes straight to storage through a signed URL the upload endpoint hands out; XHR, so its progress shows
+  async function upload(file, onProgress) {
     const r = await fetch(SITE.uploadEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: file.name, type: file.type || 'application/octet-stream', size: file.size }) });
     if (!r.ok) { const m = (await r.json().catch(() => ({}))).error; throw new Error(m || 'upload refused'); }
     const { url, path } = await r.json();
-    const put = await fetch(url, { method: 'PUT', headers: { 'Content-Type': file.type || 'application/octet-stream' }, body: file });
-    if (!put.ok) throw new Error('upload failed');
+    await new Promise((res, rej) => {
+      const x = new XMLHttpRequest();
+      x.open('PUT', url);
+      x.setRequestHeader('Content-Type', file.type || 'application/octet-stream');
+      x.upload.onprogress = e => { if (e.lengthComputable) onProgress(e.loaded / e.total); };
+      x.onload = () => (x.status >= 200 && x.status < 300 ? res() : rej(new Error('upload failed')));
+      x.onerror = () => rej(new Error('upload failed'));
+      x.send(file);
+    });
     return { name: file.name, path, size: file.size };
   }
+
+  // the button says what is happening: Sending… / Uploading 2 of 3 · 45 %, with a bar under it
+  const progress = $('#progress'), bar = $('#progress-bar'), label = $('#progress-label');
+  const busy = (text, frac = null) => {
+    submit.disabled = true; submit.setAttribute('aria-busy', 'true'); submit.classList.add('busy');
+    submit.innerHTML = `<i class="spin" aria-hidden="true"></i>${esc(text)}`;
+    progress.hidden = frac === null; if (frac !== null) { bar.style.width = `${Math.round(frac * 100)}%`; label.textContent = text; }
+  };
+  const idle = () => { submit.disabled = false; submit.removeAttribute('aria-busy'); submit.classList.remove('busy'); progress.hidden = true; syncButton(); };
 
   form.addEventListener('submit', async ev => {
     ev.preventDefault();
@@ -230,21 +247,39 @@
     if (!SITE.formEndpoint || (files.length && !SITE.uploadEndpoint)) {
       note.textContent = 'The sign-up isn’t connected yet — set formEndpoint and uploadEndpoint in data/site-data.js.'; return;
     }
-    submit.disabled = true;
+    busy('Sending…'); note.textContent = '';
     try {
-      const up = async fs => { const out = []; for (const f of fs) { note.textContent = `Uploading ${f.name}…`; out.push(await upload(f)); } return out; };
+      const all = wantsEdit() ? [...el.recording.files, ...el.media.files] : [];
+      const total = all.reduce((n, f) => n + f.size, 0) || 1;
+      let done = 0, k = 0;
+      const up = async fs => {
+        const out = [];
+        for (const f of fs) {
+          k++;
+          out.push(await upload(f, q => busy(`Uploading ${k} of ${all.length} · ${Math.round(((done + q * f.size) / total) * 100)}%`, (done + q * f.size) / total)));
+          done += f.size;
+        }
+        return out;
+      };
       const recording = wantsEdit() ? {
         files: await up([...el.recording.files]), link: el.link.value.trim(), instructions: el.instructions.value.trim(),
         media: await up([...el.media.files]), consent: el.consent.checked } : null;
+      busy('Sending…');
       const payload = { name, email, website: el.website.value, phone: el.phone.value.trim(), makes: el.makes.value,
         posts: [...form.querySelectorAll('input[name="posts"]:checked')].map(x => x.value), recording };
       const r = await fetch(SITE.formEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
       if (!r.ok) throw new Error(String(r.status));
-      note.textContent = recording ? `You’re in, ${name.split(' ')[0]}. We’ll edit your clip and write to ${email}.` : `You’re on the list. We’ll write to ${email}.`;
-      form.reset(); ['#files-recording', '#files-media'].forEach(l => { $(l).innerHTML = ''; }); syncButton();
+      // done: the form gives way to a clear confirmation
+      const first = esc(name.split(' ')[0]);
+      $('#done').innerHTML = `<span class="tick" aria-hidden="true">✓</span><h3>You’re in, ${first}.</h3>
+        <p>${recording ? `We’ve got your clip${all.length > 1 ? 's' : ''}. We’ll edit it and send the short to <b>${esc(email)}</b>.` : `We’ll write to <b>${esc(email)}</b> when you can bring your first recording.`}</p>
+        <button class="btn ghost small" type="button" id="again">Send another</button>`;
+      form.hidden = true; $('#done').hidden = false; $('#done').focus();
+      $('#again').addEventListener('click', () => { form.reset(); ['#files-recording', '#files-media'].forEach(l => { $(l).innerHTML = ''; }); $('#done').hidden = true; form.hidden = false; idle(); });
     } catch (err) {
       note.textContent = err && err.message && !/^\d+$/.test(err.message) && !/fetch/i.test(err.message)
         ? `That didn’t go through: ${err.message}.` : 'That didn’t go through — try again in a moment.';
-    } finally { submit.disabled = false; }
+      idle();
+    }
   });
 })();
