@@ -1,4 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#0d0d0f"/>
-  <g transform="translate(6.4 6.4) scale(.8)"><rect x="17" y="4" width="30" height="56" rx="8" fill="none" stroke="#c6f36b" stroke-width="4.5"/>
-  <g stroke="#c6f36b" stroke-width="3.6" stroke-linecap="round"><line x1="23.5" y1="28" x2="23.5" y2="36"/><line x1="28" y1="23" x2="28" y2="41"/><line x1="36" y1="23" x2="36" y2="41"/><line x1="40.5" y1="28" x2="40.5" y2="36"/></g>
-  <circle cx="32" cy="32" r="2.2" fill="#c6f36b"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#0d0d0f"/><g transform="translate(4.8 4.8) scale(.85)"><g transform="translate(2.5 -3)"><path fill-rule="evenodd" fill="#c6f36b" d="M27 18a18 18 0 1 1 0 36a18 18 0 1 1 0-36zM27 26.5a9.5 9.5 0 1 0 0 19a9.5 9.5 0 1 0 0-19z"/><rect x="37.5" y="16" width="12.5" height="38" rx="2.5" fill="#c6f36b"/><path d="M24.2 31.2L24.2 40.8L32.2 36Z" fill="#c6f36b" stroke="#c6f36b" stroke-width="1.6" stroke-linejoin="round"/></g></g></svg>
