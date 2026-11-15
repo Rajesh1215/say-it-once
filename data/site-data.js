@@ -1,5 +1,6 @@
 // The landing page's data — real, taken from the app and the files: the hero short's words as ElevenLabs timed them,
-// the cuts the pacing made in a raw take, raw → edited pairs, an instructions example, and the 11 example shorts.
+// and the 11 examples: the raw recording, the instructions and media it was given, and the short it became.
+// `shown`: how many examples the raw → edited section shows before “View more”.
 window.SITE = {
  "heroWords": {
   "duration": 50.27,
@@ -651,32 +652,88 @@ window.SITE = {
    }
   ]
  },
- "heroCuts": {
-  "source": 23.0,
-  "cuts": [
-   {
-    "s": 0.0,
-    "e": 0.23,
-    "why": "lead_trim"
-   },
-   {
-    "s": 6.44,
-    "e": 6.61,
-    "why": "silence_trim"
-   },
-   {
-    "s": 14.5,
-    "e": 14.71,
-    "why": "silence_trim"
-   },
-   {
-    "s": 21.7,
-    "e": 23.0,
-    "why": "tail_trim"
-   }
-  ]
- },
- "pairs": [
+ "examples": [
+  {
+   "id": "upi-explained-hud",
+   "kind": "audio",
+   "raw": [
+    "media/raw-upi.m4a"
+   ],
+   "rawLabel": "1 voice recording",
+   "from": "0:51",
+   "to": "0:49",
+   "look": "HUD",
+   "media": [],
+   "instructions": "Show the money moving step by step: my phone, then NPCI, then my bank, then the shopkeeper’s bank, and end on the green tick. Show the Google Pay, PhonePe and UPI logos when I say them.",
+   "did": [
+    "The money’s path drawn step by step",
+    "Google Pay and PhonePe logos on their words"
+   ],
+   "topic": "How UPI moves money",
+   "len": 48.8
+  },
+  {
+   "id": "raw6-d2c-premium",
+   "kind": "video",
+   "raw": "media/raw-raw6.mp4",
+   "poster": "media/raw-raw6.jpg",
+   "rawLabel": "1 Hinglish take",
+   "from": "0:50",
+   "to": "0:49",
+   "look": "Premium",
+   "instructions": "This is for D2C founders. Use my Meta and Google logos when I mention Meta Ads and Google Ads, and my ad dashboard clip when I talk about ad money. Make the line ‘they buy your value, story and vibe’ the big moment.",
+   "media": [
+    {
+     "src": "media/user/meta-logo.png",
+     "label": "Meta logo"
+    },
+    {
+     "src": "media/user/google-logo.png",
+     "label": "Google logo"
+    },
+    {
+     "src": "media/user/ad-dashboard.jpg",
+     "label": "Ad-dashboard clip"
+    }
+   ],
+   "did": [
+    "Her logos and clip on her words",
+    "Hindi and English captioned as said"
+   ],
+   "topic": "D2C brands and content",
+   "len": 49.4
+  },
+  {
+   "id": "img-takes-band",
+   "kind": "pile",
+   "raw": [
+    "media/takes/take_01.jpg",
+    "media/takes/take_02.jpg",
+    "media/takes/take_03.jpg",
+    "media/takes/take_04.jpg",
+    "media/takes/take_05.jpg",
+    "media/takes/take_06.jpg",
+    "media/takes/take_07.jpg",
+    "media/takes/take_08.jpg",
+    "media/takes/take_09.jpg",
+    "media/takes/take_10.jpg",
+    "media/takes/take_11.jpg",
+    "media/takes/take_12.jpg",
+    "media/takes/take_13.jpg"
+   ],
+   "rawLabel": "13 takes on an iPhone",
+   "from": "1:26",
+   "to": "0:48",
+   "look": "Band",
+   "media": [],
+   "instructions": "Show the Spotify playlist when I mention it. Keep me on screen at least half the time. Make the ‘less than twenty-four hours’ moment big.",
+   "did": [
+    "Takes joined in order, dead ends trimmed",
+    "Spotify shown by its logo and a playlist card"
+   ],
+   "topic": "AI tools vs thinking",
+   "len": 48.5
+  },
   {
    "id": "5am-voice-notes-paper",
    "kind": "audio",
@@ -685,164 +742,149 @@ window.SITE = {
     "media/raw-note2_day12.m4a",
     "media/raw-note3_day30.m4a"
    ],
-   "rawLabel": "3 voice notes, no camera",
+   "rawLabel": "3 voice notes",
    "from": "1:04",
    "to": "1:00",
    "look": "Paper",
+   "instructions": "",
+   "media": [],
    "did": [
     "A picture or a page for every line",
-    "The three notes joined, their silences trimmed",
-    "Key words set big in the look's green"
-   ]
-  },
-  {
-   "id": "clip1-chemical-peel-ember",
-   "kind": "video",
-   "raw": "media/raw-clip1.mp4",
-   "poster": "media/raw-clip1.jpg",
-   "rawLabel": "One take at a mic",
-   "from": "0:55",
-   "to": "0:52",
-   "look": "Ember",
-   "did": [
-    "11 stretches of dead air cut (2.9 s)",
-    "Titles on the words that matter",
-    "A checklist that ticks as she lists"
-   ]
+    "Notes joined, silences trimmed"
+   ],
+   "topic": "5 AM for 30 days",
+   "len": 60.0
   },
   {
    "id": "clip5-marysville-homes-band",
    "kind": "video",
    "raw": "media/raw-clip5.mp4",
    "poster": "media/raw-clip5.jpg",
-   "rawLabel": "A landscape podcast take",
+   "wide": true,
+   "rawLabel": "1 landscape podcast take",
    "from": "1:18",
    "to": "1:14",
    "look": "Band",
+   "media": [],
+   "instructions": "For home buyers in Marysville. Make every number stand out and keep me on screen most of the time.",
    "did": [
-    "Never cropped to a face: the picture sits in a band",
-    "Every number he says, counted on screen",
-    "A tap-to-comment ending"
-   ]
-  },
-  {
-   "id": "img-takes-band",
-   "kind": "sheet",
-   "raw": "media/raw-img-takes-sheet.jpg",
-   "rawLabel": "13 takes on an iPhone, 4K",
-   "from": "1:26",
-   "to": "0:48",
-   "look": "Band",
-   "did": [
-    "The takes joined in order, each one's dead ends trimmed",
-    "Spotify shown by its logo when he names it",
-    "A Spotify playlist card for the payoff"
-   ]
-  },
-  {
-   "id": "raw6-d2c-premium",
-   "kind": "video",
-   "raw": "media/raw-raw6.mp4",
-   "poster": "media/raw-raw6.jpg",
-   "rawLabel": "A Hinglish take + her own logos and a clip",
-   "from": "0:50",
-   "to": "0:49",
-   "look": "Premium",
-   "did": [
-    "Her Google and Meta logos on “Google Ads, Meta Ads”",
-    "Her ad-dashboard clip on the ad money",
-    "Hindi and English captioned as said"
-   ]
-  }
- ],
- "instruction": {
-  "raw": "media/raw-upi.m4a",
-  "short": "media/upi-explained-hud.mp4",
-  "from": 6.1,
-  "to": 10.6,
-  "text": "Show the money moving step by step: my phone, then NPCI, then my bank, then the shopkeeper’s bank, and end on the green tick. Show the Google Pay, PhonePe and UPI logos when I say them.",
-  "said": "“You open Google Pay or PhonePe, type two hundred rupees, and hit send.”",
-  "look": "HUD"
- },
- "shorts": [
-  {
-   "id": "clip2-ai-ideas-premium",
-   "look": "Premium",
-   "input": "One desk take",
-   "topic": "An idea tree, not a list",
-   "len": 50.3
-  },
-  {
-   "id": "clip4-jewellery-ember",
-   "look": "Ember",
-   "input": "One selfie take",
-   "topic": "Jewellery boxes",
-   "len": 21.1
-  },
-  {
-   "id": "5am-voice-notes-paper",
-   "look": "Paper",
-   "input": "Three voice notes",
-   "topic": "5 AM for 30 days",
-   "len": 60.0
-  },
-  {
-   "id": "upi-explained-hud",
-   "look": "HUD",
-   "input": "A voice recording",
-   "topic": "How UPI moves money",
-   "len": 48.8
-  },
-  {
-   "id": "img-takes-band",
-   "look": "Band",
-   "input": "13 landscape takes",
-   "topic": "AI tools vs thinking",
-   "len": 48.5
-  },
-  {
-   "id": "clip5-marysville-homes-band",
-   "look": "Band",
-   "input": "A landscape podcast",
+    "Never cropped to a face",
+    "Every number counted on screen"
+   ],
    "topic": "49 homes in Marysville",
    "len": 74.2
   },
   {
-   "id": "clip6-whose-voice-split",
-   "look": "Split",
-   "input": "A landscape podcast",
-   "topic": "Whose voice is in your head",
-   "len": 24.4
+   "id": "clip1-chemical-peel-ember",
+   "kind": "video",
+   "raw": "media/raw-clip1.mp4",
+   "poster": "media/raw-clip1.jpg",
+   "rawLabel": "1 take at a mic",
+   "from": "0:55",
+   "to": "0:52",
+   "look": "Ember",
+   "instructions": "",
+   "media": [],
+   "did": [
+    "11 stretches of dead air cut",
+    "Titles on the words that matter"
+   ],
+   "topic": "Before a chemical peel",
+   "len": 52.5
   },
   {
-   "id": "raw6-d2c-premium",
+   "kind": "video",
+   "raw": "media/raw-clip2.mp4",
+   "poster": "media/raw-clip2.jpg",
+   "rawLabel": "1 desk take",
+   "from": "0:52",
+   "to": "0:50",
+   "instructions": "For creators who use AI. Make the number 30 big, and show every AI tool I name by its logo.",
+   "media": [],
+   "did": [
+    "The number 30 counted up",
+    "An idea tree drawn as he explains"
+   ],
+   "id": "clip2-ai-ideas-premium",
    "look": "Premium",
-   "input": "Hinglish take + her logos",
-   "topic": "D2C brands and content",
-   "len": 49.4
+   "topic": "An idea tree, not a list",
+   "len": 50.3
   },
   {
+   "kind": "video",
+   "raw": "media/raw-clip4.mp4",
+   "poster": "media/raw-clip4.jpg",
+   "rawLabel": "1 selfie take",
+   "from": "0:23",
+   "to": "0:21",
+   "instructions": "Keep it fun and fast, with a playful feel.",
+   "media": [],
+   "did": [
+    "Bangles, necklace, earrings as she names them",
+    "Big titles on her hooks"
+   ],
+   "id": "clip4-jewellery-ember",
+   "look": "Ember",
+   "topic": "Jewellery boxes",
+   "len": 21.1
+  },
+  {
+   "kind": "video",
+   "raw": "media/raw-raw9.mp4",
+   "poster": "media/raw-raw9.jpg",
+   "rawLabel": "1 desk take",
+   "from": "0:31",
+   "to": "0:30",
+   "instructions": "Promote the new video module of my AI Photoshoot Masterclass. Use my editing and studio b-roll. Make ‘this Friday’ and ‘the price is going up’ stand out, and end with a clear call to join now.",
+   "media": [],
+   "did": [
+    "Gold titles on ‘this Friday’ and ‘going up’",
+    "Studio B-roll for the visuals"
+   ],
    "id": "raw9-masterclass-cinematic",
    "look": "Cinematic",
-   "input": "One take + her B-roll",
    "topic": "A masterclass launch",
    "len": 29.7
   },
   {
+   "kind": "video",
+   "raw": "media/raw-clip3.mp4",
+   "poster": "media/raw-clip3.jpg",
+   "rawLabel": "1 sofa take",
+   "from": "0:39",
+   "to": "0:37",
+   "instructions": "",
+   "media": [],
+   "did": [
+    "Title set behind her for depth",
+    "The cost card under her"
+   ],
    "id": "clip3-university-cinematic",
    "look": "Cinematic",
-   "input": "One sofa take",
    "topic": "University prices",
    "len": 37.1
   },
   {
-   "id": "clip1-chemical-peel-ember",
-   "look": "Ember",
-   "input": "One mic take",
-   "topic": "Before a chemical peel",
-   "len": 52.5
+   "kind": "video",
+   "raw": "media/raw-clip6.mp4",
+   "poster": "media/raw-clip6.jpg",
+   "wide": true,
+   "rawLabel": "1 landscape podcast take",
+   "from": "0:26",
+   "to": "0:24",
+   "instructions": "",
+   "media": [],
+   "did": [
+    "Split into picture and page",
+    "A checklist of the rules she names"
+   ],
+   "id": "clip6-whose-voice-split",
+   "look": "Split",
+   "topic": "Whose voice is in your head",
+   "len": 24.4
   }
  ],
+ "shown": 3,
  "looks": [
   "Ember",
   "Cinematic",
