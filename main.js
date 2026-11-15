@@ -211,7 +211,7 @@
   async function upload(file) {
     const r = await fetch(SITE.uploadEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: file.name, type: file.type || 'application/octet-stream', size: file.size }) });
-    if (!r.ok) throw new Error('upload refused');
+    if (!r.ok) { const m = (await r.json().catch(() => ({}))).error; throw new Error(m || 'upload refused'); }
     const { url, path } = await r.json();
     const put = await fetch(url, { method: 'PUT', headers: { 'Content-Type': file.type || 'application/octet-stream' }, body: file });
     if (!put.ok) throw new Error('upload failed');
@@ -236,14 +236,15 @@
       const recording = wantsEdit() ? {
         files: await up([...el.recording.files]), link: el.link.value.trim(), instructions: el.instructions.value.trim(),
         media: await up([...el.media.files]), consent: el.consent.checked } : null;
-      const payload = { name, email, phone: el.phone.value.trim(), makes: el.makes.value,
+      const payload = { name, email, website: el.website.value, phone: el.phone.value.trim(), makes: el.makes.value,
         posts: [...form.querySelectorAll('input[name="posts"]:checked')].map(x => x.value), recording };
       const r = await fetch(SITE.formEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
       if (!r.ok) throw new Error(String(r.status));
       note.textContent = recording ? `You’re in, ${name.split(' ')[0]}. We’ll edit your clip and write to ${email}.` : `You’re on the list. We’ll write to ${email}.`;
       form.reset(); ['#files-recording', '#files-media'].forEach(l => { $(l).innerHTML = ''; }); syncButton();
-    } catch {
-      note.textContent = 'That didn’t go through — try again in a moment.';
+    } catch (err) {
+      note.textContent = err && err.message && !/^\d+$/.test(err.message) && !/fetch/i.test(err.message)
+        ? `That didn’t go through: ${err.message}.` : 'That didn’t go through — try again in a moment.';
     } finally { submit.disabled = false; }
   });
 })();

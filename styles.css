@@ -348,3 +348,5 @@ h1 .line { display: block; }
 .pair .arrow { padding-top: 40px; }
 @media (max-width: 860px) { .pair .arrow { padding-top: 0; } }
 .brand .mark-img { width: 26px; height: 26px; display: block; }
+.trap { position: absolute !important; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.privacy { margin: 4px 0 0; font-size: 13px; color: var(--faint); }

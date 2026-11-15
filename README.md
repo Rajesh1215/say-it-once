@@ -30,6 +30,13 @@ voices (UPI, 5 AM) are fine to show.
 
 ## Early-access form
 
-It posts `{ email }` as JSON to `SITE.formEndpoint`. Until that is set (in `data/site-data.js`) it tells the
-visitor it isn't connected — connect it to your list (a serverless function, Formspree, a Google Apps Script…)
-before launch.
+The form posts to `signup-service/` — a small Flask service on Google Cloud Run (`aether-signups`, us-central1,
+project `project-512b0c9f-1fbc-4933-866`), running as the `autoedits` service account, so no key file exists anywhere:
+
+- `POST /upload-url` → a 15-minute signed PUT URL into `gs://aether-assets-production/signups/<date>/<id>/…`
+  (video/audio/image, ≤ 500 MB); the browser uploads straight to the bucket (its CORS allows PUT from this page only).
+- `POST /signup` → one row in the "Aether sign-ups" Google Sheet (shared with the service account as Editor).
+
+Only the page's origins may call it, a hidden `website` field drops bots, and each IP gets a few calls a minute.
+Redeploy after a change: `cd signup-service && gcloud run deploy aether-signups --source . --region us-central1`
+(the environment variables stay as set).

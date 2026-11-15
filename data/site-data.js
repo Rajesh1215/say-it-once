@@ -896,6 +896,6 @@ window.SITE = {
   "Neon",
   "HUD"
  ],
- "formEndpoint": "",
- "uploadEndpoint": ""
+ "formEndpoint": "https://aether-signups-160853751630.us-central1.run.app/signup",
+ "uploadEndpoint": "https://aether-signups-160853751630.us-central1.run.app/upload-url"
 };
