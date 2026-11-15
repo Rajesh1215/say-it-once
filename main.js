@@ -12,7 +12,7 @@
     const q = new URLSearchParams(location.search);
     const utm = ['utm_source', 'utm_medium', 'utm_campaign'].map(k => q.get(k)).filter(Boolean).join(' / ');
     const body = JSON.stringify({ event, detail, ref: document.referrer, utm, tz: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      lang: navigator.language, screen: `${screen.width}x${screen.height}` });
+      lang: navigator.language, screen: `${screen.width}x${screen.height}`, wd: navigator.webdriver === true });
     try { navigator.sendBeacon(SITE.hitEndpoint, new Blob([body], { type: 'text/plain' })); } catch { /* never in the visitor's way */ }
   };
   track('view');

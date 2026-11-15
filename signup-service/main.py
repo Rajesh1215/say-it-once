@@ -184,9 +184,12 @@ def hit():
     kind, browser = _device(ua)
     ref = str(d.get('ref') or '')[:200]
     ref = re.sub(r'^https?://(www\.)?', '', ref).split('/')[0] if ref else 'direct'
+    # a robot: a browser driven by software (webdriver), a headless one, or no real time zone (data-centre machines run
+    # on UTC; people's devices are set to where they are) — kept, but marked, and the Summary counts people only
+    robot = bool(d.get('wd')) or 'Headless' in ua or tz in ('', 'UTC') or tz.startswith('Etc/')
     row = [dt.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S'), day, event, str(d.get('detail') or '')[:80], visitor,
            ZONES.get(tz, 'unknown'), tz, ref, str(d.get('utm') or '')[:120], kind, browser, str(d.get('lang') or '')[:20],
-           str(d.get('screen') or '')[:20]]
+           str(d.get('screen') or '')[:20], 'bot' if robot else 'person']
     try:
         append('Visits!A1', row)
     except Exception:
