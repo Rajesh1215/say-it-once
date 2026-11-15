@@ -17,8 +17,8 @@
   <header class="nav">
     <a class="brand" href="#top" aria-label="Aether Shorts, home"><i aria-hidden="true"></i>Aether Shorts</a>
     <nav aria-label="Sections">
-      <a href="#cut">How it cuts</a>
-      <a href="#inputs">What you bring</a>
+      <a href="#pairs">Raw → edited</a>
+      <a href="#instructions">Instructions</a>
       <a href="#looks">Looks</a>
     </nav>
     <a class="btn small" href="#access">Get early access</a>
@@ -38,26 +38,36 @@
         <p class="lede">Upload a voice note, a selfie take or a pile of podcast clips. Aether plans the short around what you said — every word captioned as you say it, the pauses trimmed to a breath, the brands you name shown by their logos, pictures and sound where they belong — in the look you pick.</p>
         <div class="row">
           <a class="btn" href="#access">Get early access</a>
-          <a class="btn ghost" href="#looks">Watch 11 real edits</a>
+          <a class="btn ghost" href="#pairs">See raw → edited</a>
         </div>
       </div>
 
       <figure class="hero-phone">
         <div class="phone">
-          <video id="hero-video" src="media/clip4-jewellery-ember.mp4" poster="media/clip4-jewellery-ember.jpg" muted loop playsinline preload="auto" aria-label="An edited short: a jewellery creator, Ember look"></video>
+          <video id="hero-video" src="media/clip2-ai-ideas-premium.mp4" poster="media/clip2-ai-ideas-premium.jpg" muted loop playsinline preload="auto" aria-label="An edited short: a founder on building a content system, Premium look"></video>
           <button class="sound" type="button" aria-pressed="false" aria-label="Sound on">Sound off</button>
         </div>
         <figcaption>
           <div class="ticker" id="ticker" aria-hidden="true"></div>
-          <p class="meta">One selfie take · Ember look · 21 s · every word timed by ElevenLabs</p>
+          <p class="meta">One desk take · Premium look · 50 s · every word timed by ElevenLabs</p>
         </figcaption>
       </figure>
+    </section>
+
+    <!-- POINT: raw → edited -->
+    <section class="pairs" id="pairs">
+      <header class="section-head">
+        <p class="mark"><span>00:04</span>Point</p>
+        <h2>What you recorded. What you get back.</h2>
+        <p>Left, the file as it came off the phone. Right, the short Aether made from it. Nothing else touched them.</p>
+      </header>
+      <div class="pair-list" id="pair-list"></div>
     </section>
 
     <!-- POINT: the cut -->
     <section class="cut" id="cut">
       <header class="section-head">
-        <p class="mark"><span>00:04</span>Point</p>
+        <p class="mark"><span>00:09</span>Point</p>
         <h2>The edit starts with your timing.</h2>
         <p>Every pause over half a second keeps a breath — a tenth after the word, a quarter before the next — and loses the rest. Never a jump cut, never a clipped first syllable.</p>
       </header>
@@ -88,37 +98,38 @@
       </div>
     </section>
 
-    <!-- POINT: inputs -->
-    <section class="inputs" id="inputs">
+    <!-- POINT: instructions -->
+    <section class="instructions" id="instructions">
       <header class="section-head">
-        <p class="mark"><span>00:09</span>Point</p>
-        <h2>Bring whatever you already recorded.</h2>
-        <p>No camera? Fine. Twelve takes on a phone? Also fine. The edit is planned from your words, so the source can be almost anything that talks.</p>
+        <p class="mark"><span>00:13</span>Point</p>
+        <h2>Tell it what you want — in a sentence.</h2>
+        <p>Instructions are optional. Leave them out and the planner decides; add a line and it follows it, at the word you said it.</p>
       </header>
-      <div class="input-grid">
-        <article class="input-card" data-play>
-          <video src="media/5am-voice-notes-paper.mp4" poster="media/5am-voice-notes-paper.jpg" muted loop playsinline preload="none"></video>
-          <div><h3>Voice notes</h3><p>Three WhatsApp-style notes, no face anywhere. Pictures, type and timing carry it.</p><span class="tag">Paper look · 60 s</span></div>
-        </article>
-        <article class="input-card" data-play>
-          <video src="media/clip1-chemical-peel-ember.mp4" poster="media/clip1-chemical-peel-ember.jpg" muted loop playsinline preload="none"></video>
-          <div><h3>One take, upright</h3><p>A creator at her mic. Titles land on the words that matter.</p><span class="tag">Ember look · 52 s</span></div>
-        </article>
-        <article class="input-card" data-play>
-          <video src="media/clip5-marysville-homes-band.mp4" poster="media/clip5-marysville-homes-band.jpg" muted loop playsinline preload="none"></video>
-          <div><h3>A landscape podcast</h3><p>Never cropped to a face: the picture sits in a band, the numbers above it.</p><span class="tag">Band look · 74 s</span></div>
-        </article>
-        <article class="input-card" data-play>
-          <video src="media/img-takes-band.mp4" poster="media/img-takes-band.jpg" muted loop playsinline preload="none"></video>
-          <div><h3>A pile of takes</h3><p>Thirteen 4K clips, joined in order, each take's dead ends trimmed.</p><span class="tag">Band look · 48 s</span></div>
-        </article>
+      <div class="ins-grid">
+        <div class="ins-left">
+          <div class="voice-card" data-audio>
+            <span class="tag">Your recording</span>
+            <p class="voice-said" id="ins-said"></p>
+            <button class="voice-play" type="button" aria-pressed="false"><span aria-hidden="true">▶</span> Play the voice note</button>
+            <div class="wave" aria-hidden="true"></div>
+          </div>
+          <div class="ins-card">
+            <span class="tag">Your instructions</span>
+            <p id="ins-text"></p>
+          </div>
+        </div>
+        <svg class="ins-arrow" viewBox="0 0 160 120" aria-hidden="true"><path d="M8 60 C 60 10, 100 110, 148 60" /><path class="head" d="M136 52 L150 60 L138 70" /></svg>
+        <figure class="ins-right">
+          <div class="phone small-phone"><video id="ins-video" muted playsinline preload="auto" aria-label="The moment the instruction asked for"></video></div>
+          <figcaption id="ins-caption"></figcaption>
+        </figure>
       </div>
     </section>
 
     <!-- PAYOFF: looks -->
     <section class="looks" id="looks">
       <header class="section-head">
-        <p class="mark"><span>00:15</span>Payoff</p>
+        <p class="mark"><span>00:17</span>Payoff</p>
         <h2>Eleven real edits. Seven looks.</h2>
         <p>Each one made from an ordinary recording and finished at 1080 × 1920. Tap one to watch it with sound.</p>
       </header>
@@ -127,9 +138,7 @@
 
     <!-- what is in every edit -->
     <section class="spec" aria-labelledby="spec-title">
-      <header class="section-head">
-        <h2 id="spec-title">In every edit</h2>
-      </header>
+      <header class="section-head"><h2 id="spec-title">In every edit</h2></header>
       <dl class="spec-sheet">
         <div><dt>Captions</dt><dd>Every word, on the moment you say it — timed by ElevenLabs, never moved.</dd></div>
         <div><dt>Pacing</dt><dd>Pauses over 0.5 s keep 0.35 s. Fillers and false starts go.</dd></div>
@@ -141,17 +150,65 @@
       </dl>
     </section>
 
-    <!-- CTA -->
+    <!-- CTA: early access, then an optional clip of your own -->
     <section class="cta" id="access">
       <p class="mark"><span>00:21</span>CTA</p>
       <h2>Your next short is already recorded.</h2>
-      <p>It's on your phone right now. We'll tell you when you can bring it.</p>
-      <form id="access-form" class="access" novalidate>
-        <label for="email" class="sr">Email</label>
-        <input id="email" name="email" type="email" placeholder="you@studio.com" autocomplete="email" required />
-        <button class="btn" type="submit">Get early access</button>
+      <p>Join early access — and if you like, send us one clip. We'll edit it and send you the short.</p>
+
+      <form id="access-form" class="form" novalidate>
+        <fieldset class="step" id="step-1">
+          <legend><span>1</span>Early access</legend>
+          <div class="fields two">
+            <label>Name<input name="name" autocomplete="name" required /></label>
+            <label>Email<input name="email" type="email" autocomplete="email" required /></label>
+            <label>Phone / WhatsApp <em>optional</em><input name="phone" type="tel" autocomplete="tel" placeholder="+91 98765 43210" /></label>
+            <label>What do you make? <em>optional</em>
+              <select name="makes">
+                <option value="">Choose one</option>
+                <option>Talking-head videos</option><option>A podcast</option><option>Voice-only / faceless</option>
+                <option>Content for a brand or business</option><option>Something else</option>
+              </select>
+            </label>
+          </div>
+          <div class="checks" role="group" aria-label="Where do you post? (optional)">
+            <span>Where do you post? <em>optional</em></span>
+            <label><input type="checkbox" name="posts" value="Instagram" />Instagram</label>
+            <label><input type="checkbox" name="posts" value="YouTube Shorts" />YouTube Shorts</label>
+            <label><input type="checkbox" name="posts" value="TikTok" />TikTok</label>
+            <label><input type="checkbox" name="posts" value="LinkedIn" />LinkedIn</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="step" id="step-2">
+          <legend><span>2</span>Edit my clip <em>optional</em></legend>
+          <label class="drop" id="drop">
+            <input name="recording" type="file" multiple accept="video/*,audio/*,.mov,.m4a,.wav,.mp3" />
+            <strong>Your recording</strong>
+            <span>Drop a video or voice note here, or tap to choose — up to 2 minutes; several takes or notes are fine.</span>
+            <ul class="files" id="files-recording"></ul>
+          </label>
+          <label>…or a link instead <em>optional</em><input name="link" type="url" placeholder="Google Drive, Dropbox, YouTube…" /></label>
+          <label>Instructions <em>optional</em>
+            <textarea name="instructions" rows="3" placeholder="e.g. Show the Google Pay and PhonePe logos when I say them. Make “₹200” big. End on the green tick."></textarea>
+          </label>
+          <div class="fields two">
+            <label class="drop small" id="drop-media">
+              <input name="media" type="file" multiple accept="image/*,video/*" />
+              <strong>Your own media <em>optional</em></strong>
+              <span>Logos, product photos, B-roll.</span>
+              <ul class="files" id="files-media"></ul>
+            </label>
+            <label>Look <em>optional</em><select name="look" id="look-select"><option value="">You choose</option></select></label>
+          </div>
+          <label class="consent"><input type="checkbox" name="consent" />I own this recording (or have permission), and Aether may edit it. You won't publish it without asking me.</label>
+        </fieldset>
+
+        <div class="submit-row">
+          <button class="btn" type="submit" id="submit">Get early access</button>
+          <p class="form-note" id="form-note" role="status"></p>
+        </div>
       </form>
-      <p class="form-note" id="form-note" role="status"></p>
     </section>
   </main>
 

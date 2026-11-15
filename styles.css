@@ -184,3 +184,91 @@ h1 .line { display: block; }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* POINT: raw → edited — the file as it came, an arrow saying what happened, the short */
+.pair-list { display: grid; gap: clamp(40px, 6vw, 72px); }
+.pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(200px, 300px) minmax(0, 1fr); gap: clamp(16px, 3vw, 36px); align-items: center; }
+.pair .side { display: flex; flex-direction: column; gap: 12px; align-items: center; }
+.pair .side > .label { font: 600 11px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
+.pair .side.edited > .label { color: var(--kept); }
+.pair .phone { width: min(100%, 270px); border-radius: 26px; box-shadow: 0 0 0 6px #050506, 0 24px 60px rgba(0, 0, 0, .5); }
+.raw-frame { width: min(100%, 270px); aspect-ratio: 9 / 16; border-radius: 18px; overflow: hidden; background: #000; border: 1px dashed var(--line-2);
+  display: grid; place-items: center; position: relative; }
+.raw-frame.wide { aspect-ratio: 16 / 9; width: min(100%, 420px); }
+.raw-frame video, .raw-frame img { width: 100%; height: 100%; object-fit: contain; }
+.raw-frame .stamp { position: absolute; left: 10px; top: 10px; font: 600 11px/1 var(--mono); padding: 5px 7px; border-radius: 6px;
+  background: rgba(13, 13, 15, .78); color: var(--muted); }
+.notes { width: min(100%, 320px); display: grid; gap: 10px; }
+.note { display: grid; grid-template-columns: 40px 1fr auto; gap: 10px; align-items: center; padding: 10px 12px; border-radius: 16px;
+  background: var(--panel); border: 1px solid var(--line); }
+.note button { width: 40px; height: 40px; border-radius: 50%; border: 0; background: var(--kept); color: var(--kept-ink); cursor: pointer; font-size: 14px; }
+.note button[aria-pressed="true"] { background: var(--ink); }
+.note canvas { width: 100%; height: 34px; }
+.note span { font: 500 12px/1 var(--mono); color: var(--faint); font-variant-numeric: tabular-nums; }
+.pair .arrow { display: flex; flex-direction: column; gap: 14px; align-items: stretch; }
+.pair .arrow svg { width: 100%; height: 56px; overflow: visible; }
+.pair .arrow path { fill: none; stroke: var(--kept); stroke-width: 2.2; stroke-linecap: round; stroke-dasharray: 6 7; animation: flow 1.4s linear infinite; }
+.pair .arrow path.head { stroke-dasharray: none; animation: none; }
+@keyframes flow { to { stroke-dashoffset: -26; } }
+.pair .times { display: flex; justify-content: space-between; align-items: baseline; font: 800 26px/1 var(--display); font-variant-numeric: tabular-nums; }
+.pair .times small { font: 500 12px/1 var(--mono); color: var(--faint); }
+.pair .did { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 14px; color: var(--muted); }
+.pair .did li { padding-left: 16px; position: relative; }
+.pair .did li::before { content: ""; position: absolute; left: 0; top: .55em; width: 7px; height: 7px; border-radius: 2px; background: var(--kept); }
+.pair .look-tag { align-self: flex-start; }
+
+/* POINT: instructions */
+.ins-grid { display: grid; grid-template-columns: minmax(0, 1fr) 160px minmax(240px, 320px); gap: clamp(16px, 3vw, 32px); align-items: center; }
+.ins-left { display: grid; gap: 14px; }
+.voice-card, .ins-card { border: 1px solid var(--line); border-radius: 18px; background: var(--panel); padding: 18px 20px; display: grid; gap: 12px; }
+.voice-said { margin: 0; font: 500 18px/1.45 var(--sans); color: var(--ink); }
+.voice-play { justify-self: start; border: 1px solid var(--line-2); background: transparent; color: var(--ink); border-radius: 999px;
+  padding: 9px 14px; font: 600 13px/1 var(--sans); cursor: pointer; }
+.voice-play[aria-pressed="true"] { background: var(--kept); color: var(--kept-ink); border-color: var(--kept); }
+.wave { height: 40px; }
+.wave canvas { width: 100%; height: 40px; }
+.ins-card { border-color: color-mix(in srgb, var(--kept) 40%, var(--line)); background: color-mix(in srgb, var(--kept) 6%, var(--panel)); }
+.ins-card p { margin: 0; font: 500 19px/1.45 var(--display); }
+.ins-card p mark { background: color-mix(in srgb, var(--kept) 28%, transparent); color: var(--ink); border-radius: 4px; padding: 0 3px; }
+.ins-arrow { width: 100%; height: 120px; }
+.ins-arrow path { fill: none; stroke: var(--kept); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 7 8; animation: flow 1.4s linear infinite; }
+.ins-arrow path.head { stroke-dasharray: none; animation: none; }
+.ins-right { margin: 0; display: grid; gap: 12px; justify-items: center; }
+.ins-right figcaption { font: 500 12px/1.5 var(--mono); color: var(--faint); text-align: center; max-width: 30ch; }
+
+/* CTA: the two-step form */
+.form { width: 100%; max-width: 760px; display: grid; gap: 18px; text-align: left; margin-top: 8px; }
+.step { border: 1px solid var(--line); border-radius: 22px; padding: 22px clamp(16px, 3vw, 28px) 24px; margin: 0; display: grid; gap: 16px; background: var(--panel); }
+.step legend { display: flex; align-items: center; gap: 10px; font: 700 20px/1 var(--display); padding: 0 8px; }
+.step legend span { width: 28px; height: 28px; border-radius: 50%; background: var(--kept); color: var(--kept-ink); display: grid; place-items: center; font: 700 14px/1 var(--mono); }
+.step em, .form label em, .checks em { font: 500 11px/1 var(--mono); font-style: normal; color: var(--faint); letter-spacing: .06em; margin-left: 6px; text-transform: uppercase; }
+.fields { display: grid; gap: 14px; }
+.fields.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.form label { display: grid; gap: 8px; font-size: 14px; color: var(--muted); }
+.form input:not([type="checkbox"]):not([type="file"]), .form select, .form textarea { width: 100%; padding: 13px 14px; border-radius: 12px; border: 1px solid var(--line-2);
+  background: var(--ground); color: var(--ink); font: 400 16px/1.3 var(--sans); }
+.form textarea { resize: vertical; min-height: 84px; }
+.form input::placeholder, .form textarea::placeholder { color: var(--faint); }
+.checks { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; font-size: 14px; color: var(--muted); }
+.checks > span { width: 100%; }
+.checks label, .consent { display: flex !important; gap: 8px; align-items: center; color: var(--ink) !important; }
+.consent { align-items: flex-start !important; font-size: 14px; line-height: 1.45; }
+.form input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--kept); flex: none; margin-top: 1px; }
+.drop { position: relative; border: 1.5px dashed var(--line-2); border-radius: 16px; padding: 22px 18px; text-align: center; cursor: pointer;
+  background: color-mix(in srgb, var(--ground) 60%, var(--panel)); transition: border-color .15s ease, background .15s ease; }
+.drop.small { padding: 16px 14px; text-align: left; }
+.drop:hover, .drop.over { border-color: var(--kept); background: color-mix(in srgb, var(--kept) 6%, var(--panel)); }
+.drop input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.drop strong { color: var(--ink); font-size: 16px; }
+.drop span { color: var(--muted); font-size: 14px; }
+.files { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 4px; font: 500 12px/1.4 var(--mono); color: var(--kept); text-align: left; }
+.submit-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+.form-note { margin: 0; }
+
+@media (max-width: 960px) {
+  .pair { grid-template-columns: 1fr; }
+  .pair .arrow svg { transform: rotate(90deg); height: 60px; width: 60px; margin: 0 auto; }
+  .ins-grid { grid-template-columns: 1fr; }
+  .ins-arrow { height: 70px; transform: rotate(90deg); }
+}
+@media (max-width: 560px) { .fields.two { grid-template-columns: 1fr; } }
