@@ -193,7 +193,6 @@
 
   // ── CTA: early access + an optional clip to edit ────────────────────────────────────────────────────
   const form = $('#access-form'), note = $('#form-note'), submit = $('#submit');
-  $('#look-select').insertAdjacentHTML('beforeend', SITE.looks.map(l => `<option>${l}</option>`).join(''));
   const MAX_FILE = 500 * 1024 * 1024;
   const listFiles = (input, el) => {
     el.innerHTML = [...input.files].map(f => `<li>${esc(f.name)} · ${(f.size / 1048576).toFixed(1)} MB${f.size > MAX_FILE ? ' — too big (500 MB max)' : ''}</li>`).join('');
@@ -236,7 +235,7 @@
       const up = async fs => { const out = []; for (const f of fs) { note.textContent = `Uploading ${f.name}…`; out.push(await upload(f)); } return out; };
       const recording = wantsEdit() ? {
         files: await up([...el.recording.files]), link: el.link.value.trim(), instructions: el.instructions.value.trim(),
-        media: await up([...el.media.files]), look: el.look.value || 'you choose', consent: el.consent.checked } : null;
+        media: await up([...el.media.files]), consent: el.consent.checked } : null;
       const payload = { name, email, phone: el.phone.value.trim(), makes: el.makes.value,
         posts: [...form.querySelectorAll('input[name="posts"]:checked')].map(x => x.value), recording };
       const r = await fetch(SITE.formEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
