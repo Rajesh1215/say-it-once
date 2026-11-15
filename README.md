@@ -1,6 +1,6 @@
-# Aether Shorts — landing page
+# VoxReel — landing page
 
-A one-page site for Aether Shorts, built like a short: each section carries a timecode and a scene mark (HOOK,
+A one-page site for VoxReel (live at https://voxreel.github.io, repo voxreel/voxreel.github.io), built like a short: each section carries a timecode and a scene mark (HOOK,
 POINT, PAYOFF, CTA), the hero headline's dead air is cut to a breath, and every example on the page is a real edit
 the app made from an unedited recording.
 

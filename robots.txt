@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://voxreel.github.io/sitemap.xml

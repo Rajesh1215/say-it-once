@@ -1,4 +1,4 @@
-// Aether Shorts landing — no build step, no dependencies. Data comes from data/site-data.js (window.SITE).
+// VoxReel landing — no build step, no dependencies. Data comes from data/site-data.js (window.SITE).
 (() => {
   const SITE = window.SITE;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
