@@ -1,0 +1,4 @@
+# the videos are large (300+ MB): kept out of git, regenerated or copied in (see README)
+media/*.mp4
+media/web/
+.DS_Store

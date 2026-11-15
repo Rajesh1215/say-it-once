@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aether Shorts — say it once</title>
+  <meta name="description" content="Upload a voice note, a selfie take or a pile of podcast clips. Aether edits it into a finished short: every word captioned, the dead air cut, logos, pictures and sound, in the look you pick." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%2210%22 fill=%22%23c6f36b%22/%3E%3C/svg%3E" />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to the content</a>
+
+  <header class="nav">
+    <a class="brand" href="#top" aria-label="Aether Shorts, home"><i aria-hidden="true"></i>Aether Shorts</a>
+    <nav aria-label="Sections">
+      <a href="#cut">How it cuts</a>
+      <a href="#inputs">What you bring</a>
+      <a href="#looks">Looks</a>
+    </nav>
+    <a class="btn small" href="#access">Get early access</a>
+  </header>
+
+  <main id="main">
+    <!-- 00:00 HOOK -->
+    <section class="hero" id="top">
+      <div class="hero-copy">
+        <p class="mark"><span>00:00</span>Hook</p>
+        <h1>
+          <span class="line">Say it once.</span>
+          <span class="line cutline" aria-label="We cut the dead air.">
+            <span class="w">We</span><span class="gap" data-from="0.82"></span><span class="w">cut</span><span class="gap" data-from="1.40"></span><span class="w">the</span><span class="gap" data-from="0.67"></span><span class="w accent">dead air.</span>
+          </span>
+        </h1>
+        <p class="lede">Upload a voice note, a selfie take or a pile of podcast clips. Aether plans the short around what you said — every word captioned as you say it, the pauses trimmed to a breath, the brands you name shown by their logos, pictures and sound where they belong — in the look you pick.</p>
+        <div class="row">
+          <a class="btn" href="#access">Get early access</a>
+          <a class="btn ghost" href="#looks">Watch 11 real edits</a>
+        </div>
+      </div>
+
+      <figure class="hero-phone">
+        <div class="phone">
+          <video id="hero-video" src="media/clip4-jewellery-ember.mp4" poster="media/clip4-jewellery-ember.jpg" muted loop playsinline preload="auto" aria-label="An edited short: a jewellery creator, Ember look"></video>
+          <button class="sound" type="button" aria-pressed="false" aria-label="Sound on">Sound off</button>
+        </div>
+        <figcaption>
+          <div class="ticker" id="ticker" aria-hidden="true"></div>
+          <p class="meta">One selfie take · Ember look · 21 s · every word timed by ElevenLabs</p>
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- POINT: the cut -->
+    <section class="cut" id="cut">
+      <header class="section-head">
+        <p class="mark"><span>00:04</span>Point</p>
+        <h2>The edit starts with your timing.</h2>
+        <p>Every pause over half a second keeps a breath — a tenth after the word, a quarter before the next — and loses the rest. Never a jump cut, never a clipped first syllable.</p>
+      </header>
+
+      <div class="cut-grid">
+        <div class="phone small-phone">
+          <video id="ba-video" src="media/raw-clip4.mp4" poster="media/raw-clip4.jpg" muted playsinline preload="auto" aria-label="The raw take or the edited short"></video>
+          <div class="toggle" role="tablist" aria-label="Raw or edited">
+            <button role="tab" aria-selected="true" data-mode="raw">Raw take</button>
+            <button role="tab" aria-selected="false" data-mode="edit">Edited</button>
+          </div>
+        </div>
+
+        <div class="cut-read">
+          <div class="bar" id="bar" aria-label="The 23-second raw take, with the four stretches the edit cut">
+            <div class="bar-track"></div>
+            <div class="bar-ruler" aria-hidden="true"></div>
+            <i class="bar-head" aria-hidden="true"></i>
+          </div>
+          <dl class="cut-stats">
+            <div><dt>Recorded</dt><dd class="num">23.0 s</dd></div>
+            <div><dt>Short</dt><dd class="num">21.1 s</dd></div>
+            <div><dt>Cut</dt><dd class="num">1.9 s <small>in 4 places</small></dd></div>
+          </dl>
+          <ul class="cut-list" id="cut-list"></ul>
+          <p class="fine">Real numbers from this take. Red is what the edit removed; play either version and watch the playhead skip the red.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- POINT: inputs -->
+    <section class="inputs" id="inputs">
+      <header class="section-head">
+        <p class="mark"><span>00:09</span>Point</p>
+        <h2>Bring whatever you already recorded.</h2>
+        <p>No camera? Fine. Twelve takes on a phone? Also fine. The edit is planned from your words, so the source can be almost anything that talks.</p>
+      </header>
+      <div class="input-grid">
+        <article class="input-card" data-play>
+          <video src="media/5am-voice-notes-paper.mp4" poster="media/5am-voice-notes-paper.jpg" muted loop playsinline preload="none"></video>
+          <div><h3>Voice notes</h3><p>Three WhatsApp-style notes, no face anywhere. Pictures, type and timing carry it.</p><span class="tag">Paper look · 60 s</span></div>
+        </article>
+        <article class="input-card" data-play>
+          <video src="media/clip1-chemical-peel-ember.mp4" poster="media/clip1-chemical-peel-ember.jpg" muted loop playsinline preload="none"></video>
+          <div><h3>One take, upright</h3><p>A creator at her mic. Titles land on the words that matter.</p><span class="tag">Ember look · 52 s</span></div>
+        </article>
+        <article class="input-card" data-play>
+          <video src="media/clip5-marysville-homes-band.mp4" poster="media/clip5-marysville-homes-band.jpg" muted loop playsinline preload="none"></video>
+          <div><h3>A landscape podcast</h3><p>Never cropped to a face: the picture sits in a band, the numbers above it.</p><span class="tag">Band look · 74 s</span></div>
+        </article>
+        <article class="input-card" data-play>
+          <video src="media/img-takes-band.mp4" poster="media/img-takes-band.jpg" muted loop playsinline preload="none"></video>
+          <div><h3>A pile of takes</h3><p>Thirteen 4K clips, joined in order, each take's dead ends trimmed.</p><span class="tag">Band look · 48 s</span></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- PAYOFF: looks -->
+    <section class="looks" id="looks">
+      <header class="section-head">
+        <p class="mark"><span>00:15</span>Payoff</p>
+        <h2>Eleven real edits. Seven looks.</h2>
+        <p>Each one made from an ordinary recording and finished at 1080 × 1920. Tap one to watch it with sound.</p>
+      </header>
+      <div class="reel" id="reel" tabindex="0" aria-label="Example shorts, scroll sideways"></div>
+    </section>
+
+    <!-- what is in every edit -->
+    <section class="spec" aria-labelledby="spec-title">
+      <header class="section-head">
+        <h2 id="spec-title">In every edit</h2>
+      </header>
+      <dl class="spec-sheet">
+        <div><dt>Captions</dt><dd>Every word, on the moment you say it — timed by ElevenLabs, never moved.</dd></div>
+        <div><dt>Pacing</dt><dd>Pauses over 0.5 s keep 0.35 s. Fillers and false starts go.</dd></div>
+        <div><dt>Logos</dt><dd>Name a brand and its real mark shows — in full colour, on a plate if the page would swallow it.</dd></div>
+        <div><dt>Pictures</dt><dd>B-roll, generated images and cut-out objects, picked for the line they sit on.</dd></div>
+        <div><dt>Graphics</dt><dd>Numbers that count, lists that tick, charts that rise — written for your words, not a template.</dd></div>
+        <div><dt>Sound</dt><dd>A palette per look, every effect placed on a word. Delivered at −14 LUFS.</dd></div>
+        <div><dt>Output</dt><dd>1080 × 1920 H.264, BT.709 colour, ready for Reels, Shorts and TikTok.</dd></div>
+      </dl>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="access">
+      <p class="mark"><span>00:21</span>CTA</p>
+      <h2>Your next short is already recorded.</h2>
+      <p>It's on your phone right now. We'll tell you when you can bring it.</p>
+      <form id="access-form" class="access" novalidate>
+        <label for="email" class="sr">Email</label>
+        <input id="email" name="email" type="email" placeholder="you@studio.com" autocomplete="email" required />
+        <button class="btn" type="submit">Get early access</button>
+      </form>
+      <p class="form-note" id="form-note" role="status"></p>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span class="brand"><i aria-hidden="true"></i>Aether Shorts</span>
+    <span>Every example on this page was edited by Aether from an unedited recording.</span>
+  </footer>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Watch with sound" hidden>
+    <button class="close" type="button" aria-label="Close">Close</button>
+    <div class="phone big-phone"><video id="lightbox-video" controls playsinline></video></div>
+    <p class="lightbox-meta" id="lightbox-meta"></p>
+  </div>
+
+  <script src="data/site-data.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

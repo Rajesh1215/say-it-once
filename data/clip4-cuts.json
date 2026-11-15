@@ -1,0 +1,1 @@
+{"source": 23.0, "cuts": [{"s": 0.0, "e": 0.23, "why": "lead_trim"}, {"s": 6.44, "e": 6.61, "why": "silence_trim"}, {"s": 14.5, "e": 14.71, "why": "silence_trim"}, {"s": 21.7, "e": 23.0, "why": "tail_trim"}]}
