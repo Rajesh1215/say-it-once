@@ -654,25 +654,6 @@ window.SITE = {
  },
  "examples": [
   {
-   "id": "upi-explained-hud",
-   "kind": "audio",
-   "raw": [
-    "media/raw-upi.m4a"
-   ],
-   "rawLabel": "1 voice recording",
-   "from": "0:51",
-   "to": "0:49",
-   "look": "HUD",
-   "media": [],
-   "instructions": "Show the money moving step by step: my phone, then NPCI, then my bank, then the shopkeeper’s bank, and end on the green tick. Show the Google Pay, PhonePe and UPI logos when I say them.",
-   "did": [
-    "The money’s path drawn step by step",
-    "Google Pay and PhonePe logos on their words"
-   ],
-   "topic": "How UPI moves money",
-   "len": 48.8
-  },
-  {
    "id": "raw6-d2c-premium",
    "kind": "video",
    "raw": "media/raw-raw6.mp4",
@@ -735,27 +716,6 @@ window.SITE = {
    "len": 48.5
   },
   {
-   "id": "5am-voice-notes-paper",
-   "kind": "audio",
-   "raw": [
-    "media/raw-note1_day1.m4a",
-    "media/raw-note2_day12.m4a",
-    "media/raw-note3_day30.m4a"
-   ],
-   "rawLabel": "3 voice notes",
-   "from": "1:04",
-   "to": "1:00",
-   "look": "Paper",
-   "instructions": "",
-   "media": [],
-   "did": [
-    "A picture or a page for every line",
-    "Notes joined, silences trimmed"
-   ],
-   "topic": "5 AM for 30 days",
-   "len": 60.0
-  },
-  {
    "id": "clip5-marysville-homes-band",
    "kind": "video",
    "raw": "media/raw-clip5.mp4",
@@ -809,6 +769,46 @@ window.SITE = {
    "look": "Premium",
    "topic": "An idea tree, not a list",
    "len": 50.3
+  },
+  {
+   "id": "upi-explained-hud",
+   "kind": "audio",
+   "raw": [
+    "media/raw-upi.m4a"
+   ],
+   "rawLabel": "1 voice recording",
+   "from": "0:51",
+   "to": "0:49",
+   "look": "HUD",
+   "media": [],
+   "instructions": "Show the money moving step by step: my phone, then NPCI, then my bank, then the shopkeeper’s bank, and end on the green tick. Show the Google Pay, PhonePe and UPI logos when I say them.",
+   "did": [
+    "The money’s path drawn step by step",
+    "Google Pay and PhonePe logos on their words"
+   ],
+   "topic": "How UPI moves money",
+   "len": 48.8
+  },
+  {
+   "id": "5am-voice-notes-paper",
+   "kind": "audio",
+   "raw": [
+    "media/raw-note1_day1.m4a",
+    "media/raw-note2_day12.m4a",
+    "media/raw-note3_day30.m4a"
+   ],
+   "rawLabel": "3 voice notes",
+   "from": "1:04",
+   "to": "1:00",
+   "look": "Paper",
+   "instructions": "",
+   "media": [],
+   "did": [
+    "A picture or a page for every line",
+    "Notes joined, silences trimmed"
+   ],
+   "topic": "5 AM for 30 days",
+   "len": 60.0
   },
   {
    "kind": "video",
