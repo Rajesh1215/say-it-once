@@ -6,6 +6,18 @@
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const mmss = t => `${Math.floor(t / 60)}:${String(Math.round(t % 60)).padStart(2, '0')}`;
 
+  // ── visits, counted without cookies: one small beacon per event to our own service (no IP or id kept on this side) ─
+  const track = (event, detail = '') => {
+    if (!SITE.hitEndpoint) return;
+    const q = new URLSearchParams(location.search);
+    const utm = ['utm_source', 'utm_medium', 'utm_campaign'].map(k => q.get(k)).filter(Boolean).join(' / ');
+    const body = JSON.stringify({ event, detail, ref: document.referrer, utm, tz: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      lang: navigator.language, screen: `${screen.width}x${screen.height}` });
+    try { navigator.sendBeacon(SITE.hitEndpoint, new Blob([body], { type: 'text/plain' })); } catch { /* never in the visitor's way */ }
+  };
+  track('view');
+  document.addEventListener('click', e => { if (e.target.closest('a[href="#access"]')) track('cta'); });
+
   // every muted preview plays only while it is on screen (light on a phone; muted autoplay is allowed everywhere)
   const watch = new IntersectionObserver(entries => entries.forEach(e => {
     const v = e.target;
@@ -30,7 +42,7 @@
   const toggleVideoSound = (video, btn) => {
     if (soundOn?.btn === btn) { quiet(); return; }
     quiet();
-    video.muted = false; video.play().catch(() => {});
+    video.muted = false; video.play().catch(() => {}); track('sound');
     btn.setAttribute('aria-pressed', 'true'); btn.textContent = 'Sound on';
     soundOn = { btn, stop: () => { video.muted = true; btn.setAttribute('aria-pressed', 'false'); btn.textContent = 'Sound off'; } };
   };
@@ -147,6 +159,7 @@
   more.textContent = `View ${SITE.examples.length - shown} more examples`;
   more.addEventListener('click', () => {
     const open = more.getAttribute('aria-expanded') === 'true';
+    if (!open) track('more');
     if (!open) {
       const extra = document.createElement('div');
       extra.className = 'pair-list extra'; extra.id = 'pair-extra';
@@ -177,7 +190,7 @@
     const item = ev.target.closest('.reel-item');
     if (!item) return;
     const e = SITE.examples.find(x => x.id === item.dataset.id);
-    opener = item; quiet();
+    opener = item; quiet(); track('example', e.id);
     $('#detail-title').textContent = `${e.topic} — ${e.look} look`;
     body.innerHTML = example(e, true);
     wire(body);
@@ -269,12 +282,13 @@
         posts: [...form.querySelectorAll('input[name="posts"]:checked')].map(x => x.value), recording };
       const r = await fetch(SITE.formEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
       if (!r.ok) throw new Error(String(r.status));
+      track(recording ? 'signup_clip' : 'signup');
       // done: the form gives way to a clear confirmation
       const first = esc(name.split(' ')[0]);
       $('#done').innerHTML = `<span class="tick" aria-hidden="true">✓</span><h3>You’re in, ${first}.</h3>
         <p>${recording ? `We’ve got your clip${all.length > 1 ? 's' : ''}. We’ll edit it and send the short to <b>${esc(email)}</b>.` : `We’ll write to <b>${esc(email)}</b> when you can bring your first recording.`}</p>
         <button class="btn ghost small" type="button" id="again">Send another</button>`;
-      form.hidden = true; $('#done').hidden = false; $('#done').focus();
+      idle(); form.hidden = true; $('#done').hidden = false; $('#done').focus();
       $('#again').addEventListener('click', () => { form.reset(); ['#files-recording', '#files-media'].forEach(l => { $(l).innerHTML = ''; }); $('#done').hidden = true; form.hidden = false; idle(); });
     } catch (err) {
       note.textContent = err && err.message && !/^\d+$/.test(err.message) && !/fetch/i.test(err.message)

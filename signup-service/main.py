@@ -5,11 +5,17 @@ account — no key file anywhere).
   POST /signup      {name, email, phone, makes, posts, recording?, website?}  -> {ok: true}   a row in the Sheet
 
 Only the landing page's origins may call it; a hidden `website` field catches bots; each IP gets a few calls a minute.
-Env: BUCKET, SHEET_ID, ALLOWED_ORIGINS (comma-separated), NOTIFY_EMAIL (optional, unused until mail is set up).
+  POST /hit  {event, ref, utm, tz, lang, screen, path}  -> 204   one cookieless visit/event row in the "Visits" tab
+
+Visits keep no cookie and no IP: a visitor code is a hash of (IP, browser, the day, a secret salt) — unique visitors per
+day, nobody recognisable across days. Country comes from the browser's time zone (zone.tab), not from the IP.
+Env: BUCKET, SHEET_ID, ALLOWED_ORIGINS (comma-separated), SALT.
 """
 from __future__ import annotations
 
 import datetime as dt
+import hashlib
+import json
 import os
 import re
 import time
@@ -19,7 +25,7 @@ from collections import defaultdict, deque
 import google.auth
 from google.auth.transport import requests as grequests
 from google.cloud import storage
-from googleapiclient.discovery import build
+from google.auth.transport.requests import AuthorizedSession
 from flask import Flask, jsonify, request
 
 BUCKET = os.environ.get('BUCKET', 'aether-assets-production')
@@ -32,7 +38,18 @@ EMAIL = re.compile(r'^[^\s@]+@[^\s@]+\.[^\s@]+$')
 app = Flask(__name__)
 creds, _ = google.auth.default(scopes=['https://www.googleapis.com/auth/cloud-platform', 'https://www.googleapis.com/auth/spreadsheets'])
 gcs = storage.Client(credentials=creds)
-sheets = build('sheets', 'v4', credentials=creds, cache_discovery=False)
+api = AuthorizedSession(creds)                              # requests-based: safe across the server's threads
+
+
+def append(rng: str, row: list) -> None:
+    """One row at the end of a tab (the Sheets API's values.append), tried twice."""
+    url = f'https://sheets.googleapis.com/v4/spreadsheets/{SHEET_ID}/values/{rng}:append'
+    for attempt in (1, 2):
+        r = api.post(url, params={'valueInputOption': 'RAW', 'insertDataOption': 'INSERT_ROWS'}, json={'values': [row]}, timeout=15)
+        if r.ok:
+            return
+        if attempt == 2 or r.status_code < 500:
+            raise RuntimeError(f'sheets append {r.status_code}: {r.text[:200]}')
 hits: dict[str, deque] = defaultdict(deque)
 
 
@@ -108,9 +125,73 @@ def signup():
            ', '.join(str(p) for p in (d.get('posts') or []))[:200], 'yes' if (files or rec.get('link')) else '',
            str(rec.get('instructions') or '')[:2000], '\n'.join(files), str(rec.get('link') or '')[:500], '\n'.join(media),
            'yes' if rec.get('consent') else '', (request.headers.get('X-Forwarded-For') or '').split(',')[0][:60]]
-    sheets.spreadsheets().values().append(spreadsheetId=SHEET_ID, range='A1', valueInputOption='RAW',
-                                          insertDataOption='INSERT_ROWS', body={'values': [row]}).execute()
+    append('Sheet1!A1', row)
     return jsonify({'ok': True})
+
+
+def _zones() -> dict[str, str]:
+    """time zone -> country name, from the tz database's zone.tab and iso3166.tab (the tzdata package)."""
+    import importlib.resources as res
+    try:
+        base = res.files('tzdata').joinpath('zoneinfo')
+        names = dict(l.split('\t')[:2] for l in base.joinpath('iso3166.tab').read_text().splitlines() if l and not l.startswith('#'))
+        out = {}
+        for l in base.joinpath('zone.tab').read_text().splitlines():
+            if l and not l.startswith('#'):
+                cc, _, tz = l.split('\t')[:3]
+                out[tz] = names.get(cc, cc)
+        out.update({'Asia/Calcutta': 'India', 'Asia/Kolkata': 'India'})
+        return out
+    except Exception:
+        return {'Asia/Kolkata': 'India', 'Asia/Calcutta': 'India'}
+
+
+ZONES = _zones()
+SALT = os.environ.get('SALT', 'aether')
+BOT = re.compile(r'bot|crawl|spider|slurp|preview|facebookexternalhit|whatsapp|bingpreview|headless', re.I)
+EVENTS = {'view', 'cta', 'signup', 'signup_clip', 'more', 'example', 'sound'}
+
+
+def _device(ua: str) -> tuple[str, str]:
+    kind = 'tablet' if re.search(r'iPad|Tablet', ua) else 'phone' if re.search(r'Mobi|Android|iPhone', ua) else 'desktop'
+    for name, pat in (('Edge', r'Edg/'), ('Samsung', r'SamsungBrowser'), ('Chrome', r'Chrome/|CriOS'), ('Firefox', r'Firefox/|FxiOS'),
+                      ('Safari', r'Safari/'), ('Instagram', r'Instagram'), ('Facebook', r'FBAN|FBAV')):
+        if re.search(pat, ua):
+            return kind, name
+    return kind, 'other'
+
+
+@app.route('/hit', methods=['POST', 'OPTIONS'])
+def hit():
+    if request.method == 'OPTIONS':
+        return '', 204
+    if not allowed() or limited(60):
+        return '', 204                                    # a visit we don't count is never an error to the page
+    ua = request.headers.get('User-Agent', '')
+    if BOT.search(ua) and not request.args.get('test'):
+        return '', 204
+    try:
+        d = json.loads(request.get_data(as_text=True) or '{}')   # sent as text/plain (sendBeacon, no preflight)
+    except ValueError:
+        return '', 204
+    event = str(d.get('event') or 'view')
+    if event not in EVENTS:
+        return '', 204
+    ip = (request.headers.get('X-Forwarded-For') or request.remote_addr or '').split(',')[0].strip()
+    day = dt.date.today().isoformat()
+    visitor = hashlib.sha256(f'{SALT}|{day}|{ip}|{ua}'.encode()).hexdigest()[:10]
+    tz = str(d.get('tz') or '')[:60]
+    kind, browser = _device(ua)
+    ref = str(d.get('ref') or '')[:200]
+    ref = re.sub(r'^https?://(www\.)?', '', ref).split('/')[0] if ref else 'direct'
+    row = [dt.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S'), day, event, str(d.get('detail') or '')[:80], visitor,
+           ZONES.get(tz, 'unknown'), tz, ref, str(d.get('utm') or '')[:120], kind, browser, str(d.get('lang') or '')[:20],
+           str(d.get('screen') or '')[:20]]
+    try:
+        append('Visits!A1', row)
+    except Exception:
+        app.logger.exception('visit not recorded')
+    return '', 204
 
 
 @app.get('/')

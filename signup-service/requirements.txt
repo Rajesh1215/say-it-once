@@ -2,5 +2,5 @@ flask==3.0.3
 gunicorn==22.0.0
 google-cloud-storage==2.18.2
 google-auth==2.35.0
-google-api-python-client==2.149.0
 requests==2.32.3
+tzdata==2024.2

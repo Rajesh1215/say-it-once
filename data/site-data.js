@@ -897,5 +897,6 @@ window.SITE = {
   "HUD"
  ],
  "formEndpoint": "https://aether-signups-160853751630.us-central1.run.app/signup",
- "uploadEndpoint": "https://aether-signups-160853751630.us-central1.run.app/upload-url"
+ "uploadEndpoint": "https://aether-signups-160853751630.us-central1.run.app/upload-url",
+ "hitEndpoint": "https://aether-signups-160853751630.us-central1.run.app/hit"
 };

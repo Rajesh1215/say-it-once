@@ -36,6 +36,9 @@ project `project-512b0c9f-1fbc-4933-866`), running as the `autoedits` service ac
 - `POST /upload-url` → a 15-minute signed PUT URL into `gs://aether-assets-production/signups/<date>/<id>/…`
   (video/audio/image, ≤ 500 MB); the browser uploads straight to the bucket (its CORS allows PUT from this page only).
 - `POST /signup` → one row in the "Aether sign-ups" Google Sheet (shared with the service account as Editor).
+- `POST /hit` → one row per visit or click in the Sheet's **Visits** tab, counted **without cookies**: no IP is kept,
+  the visitor code is a hash that changes every day, and the country comes from the browser's time zone. The
+  **Summary** tab totals them (views, unique visitors per day, clicks, sign-ups, by day / country / source).
 
 Only the page's origins may call it, a hidden `website` field drops bots, and each IP gets a few calls a minute.
 Redeploy after a change: `cd signup-service && gcloud run deploy aether-signups --source . --region us-central1`
