@@ -716,6 +716,27 @@ window.SITE = {
    "len": 48.5
   },
   {
+   "id": "5am-voice-notes-paper",
+   "kind": "audio",
+   "raw": [
+    "media/raw-note1_day1.m4a",
+    "media/raw-note2_day12.m4a",
+    "media/raw-note3_day30.m4a"
+   ],
+   "rawLabel": "3 voice notes",
+   "from": "1:04",
+   "to": "1:00",
+   "look": "Paper",
+   "instructions": "",
+   "media": [],
+   "did": [
+    "A picture or a page for every line",
+    "Notes joined, silences trimmed"
+   ],
+   "topic": "5 AM for 30 days",
+   "len": 60.0
+  },
+  {
    "id": "clip5-marysville-homes-band",
    "kind": "video",
    "raw": "media/raw-clip5.mp4",
@@ -753,24 +774,6 @@ window.SITE = {
    "len": 52.5
   },
   {
-   "kind": "video",
-   "raw": "media/raw-clip2.mp4",
-   "poster": "media/raw-clip2.jpg",
-   "rawLabel": "1 desk take",
-   "from": "0:52",
-   "to": "0:50",
-   "instructions": "For creators who use AI. Make the number 30 big, and show every AI tool I name by its logo.",
-   "media": [],
-   "did": [
-    "The number 30 counted up",
-    "An idea tree drawn as he explains"
-   ],
-   "id": "clip2-ai-ideas-premium",
-   "look": "Premium",
-   "topic": "An idea tree, not a list",
-   "len": 50.3
-  },
-  {
    "id": "upi-explained-hud",
    "kind": "audio",
    "raw": [
@@ -790,25 +793,22 @@ window.SITE = {
    "len": 48.8
   },
   {
-   "id": "5am-voice-notes-paper",
-   "kind": "audio",
-   "raw": [
-    "media/raw-note1_day1.m4a",
-    "media/raw-note2_day12.m4a",
-    "media/raw-note3_day30.m4a"
-   ],
-   "rawLabel": "3 voice notes",
-   "from": "1:04",
-   "to": "1:00",
-   "look": "Paper",
-   "instructions": "",
+   "kind": "video",
+   "raw": "media/raw-clip2.mp4",
+   "poster": "media/raw-clip2.jpg",
+   "rawLabel": "1 desk take",
+   "from": "0:52",
+   "to": "0:50",
+   "instructions": "For creators who use AI. Make the number 30 big, and show every AI tool I name by its logo.",
    "media": [],
    "did": [
-    "A picture or a page for every line",
-    "Notes joined, silences trimmed"
+    "The number 30 counted up",
+    "An idea tree drawn as he explains"
    ],
-   "topic": "5 AM for 30 days",
-   "len": 60.0
+   "id": "clip2-ai-ideas-premium",
+   "look": "Premium",
+   "topic": "An idea tree, not a list",
+   "len": 50.3
   },
   {
    "kind": "video",
