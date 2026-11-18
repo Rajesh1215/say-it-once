@@ -94,6 +94,12 @@
   })();
   hero.dataset.auto = '';
   watch.observe(hero);
+  // the captions-only edit beside it plays in step with the full edit (same take, same timing)
+  const twin = $('#hero-captions');
+  if (twin) {
+    twin.dataset.auto = ''; watch.observe(twin);
+    setInterval(() => { if (!hero.paused && Math.abs(twin.currentTime - hero.currentTime) > 0.25) twin.currentTime = hero.currentTime; }, 1000);
+  }
   const heroSound = $('.sound');
   heroSound.addEventListener('click', () => toggleVideoSound(hero, heroSound));
 
@@ -185,6 +191,18 @@
       list.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'end' });
     }
   });
+
+  // ── POINT: the captions-only edits, side by side ──────────────────────────────────────────────────────
+  const capRow = $('#cap-row');
+  if (capRow && SITE.captionsOnly) {
+    capRow.innerHTML = SITE.captionsOnly.map(c => `
+      <figure class="cap-item">
+        <div class="phone"><video src="media/${c.id}.mp4" poster="media/${c.id}.jpg" muted loop playsinline preload="none" data-auto></video>
+          <button class="mute" type="button" aria-pressed="false">Sound off</button></div>
+        <figcaption><b>${c.look}</b> captions + titles <span>${esc(c.topic)} · ${Math.round(c.len)} s</span></figcaption>
+      </figure>`).join('');
+    wire(capRow);
+  }
 
   // ── PAYOFF: every finished short; tap one for in · told · out ───────────────────────────────────────
   const reel = $('#reel');

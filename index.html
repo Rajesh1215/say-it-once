@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" />
-  <link rel="stylesheet" href="styles.css?v=202611152221" />
+  <link rel="stylesheet" href="styles.css?v=202611181449" />
   <link rel="icon" href="brand/app-icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="brand/apple-touch-icon.png" />
 </head>
@@ -34,6 +34,7 @@
     <a class="brand" href="#top" aria-label="VoxReel, home"><img class="mark-img" src="brand/mark.svg" alt="" width="22" height="22" />VoxReel</a>
     <nav aria-label="Sections">
       <a href="#pairs">Raw → edited</a>
+      <a href="#captions">Captions only</a>
       <a href="#does">What it does</a>
       <a href="#looks">Looks</a>
       <a href="#faq">FAQ</a>
@@ -60,13 +61,24 @@
       </div>
 
       <figure class="hero-phone">
-        <div class="phone">
-          <video id="hero-video" src="media/clip2-ai-ideas-premium.mp4" poster="media/clip2-ai-ideas-premium.jpg" muted loop playsinline preload="auto" aria-label="An edited short: a founder on building a content system, Premium look"></video>
-          <button class="sound" type="button" aria-pressed="false" aria-label="Sound on">Sound off</button>
+        <div class="hero-pair">
+          <div class="hero-side">
+            <span class="hero-label">Full edit</span>
+            <div class="phone">
+              <video id="hero-video" src="media/clip2-ai-ideas-premium.mp4" poster="media/clip2-ai-ideas-premium.jpg" muted loop playsinline preload="auto" aria-label="The full edit: a founder on building a content system, Premium look"></video>
+              <button class="sound" type="button" aria-pressed="false" aria-label="Sound on">Sound off</button>
+            </div>
+          </div>
+          <div class="hero-side">
+            <span class="hero-label">Captions only</span>
+            <div class="phone">
+              <video id="hero-captions" src="media/captions-clip2-ai-ideas-premium.mp4" poster="media/captions-clip2-ai-ideas-premium.jpg" muted loop playsinline preload="auto" aria-label="The same take, captions and titles only"></video>
+            </div>
+          </div>
         </div>
         <figcaption>
           <div class="ticker" id="ticker" aria-hidden="true"></div>
-          <p class="meta">One desk take · Premium look · 50 s · every word timed by ElevenLabs</p>
+          <p class="meta">One desk take, two edits · Premium look · 50 s · every word timed by ElevenLabs</p>
         </figcaption>
       </figure>
     </section>
@@ -80,6 +92,16 @@
       </header>
       <div class="pair-list" id="pair-list"></div>
       <button class="btn ghost more" type="button" id="more" aria-expanded="false">View more examples</button>
+    </section>
+
+    <!-- POINT: just captions -->
+    <section class="caponly" id="captions">
+      <header class="section-head">
+        <p class="mark"><span>00:07</span>Point</p>
+        <h2>Just want captions?</h2>
+        <p>The same recordings, edited lighter: every word captioned in the look's own style, the key words lifted, and a title on the lines that matter. No graphics, no B-roll — your face and your words.</p>
+      </header>
+      <div class="cap-row" id="cap-row"></div>
     </section>
 
     <!-- POINT: what the edit does -->
@@ -188,7 +210,7 @@
     </div>
   </div>
 
-  <script src="data/site-data.js?v=202611152221"></script>
-  <script src="main.js?v=202611152221"></script>
+  <script src="data/site-data.js?v=202611181449"></script>
+  <script src="main.js?v=202611181449"></script>
 </body>
 </html>

@@ -654,37 +654,6 @@ window.SITE = {
  },
  "examples": [
   {
-   "id": "raw6-d2c-premium",
-   "kind": "video",
-   "raw": "media/raw-raw6.mp4",
-   "poster": "media/raw-raw6.jpg",
-   "rawLabel": "1 Hinglish take",
-   "from": "0:50",
-   "to": "0:49",
-   "look": "Premium",
-   "instructions": "This is for D2C founders. Use my Meta and Google logos when I mention Meta Ads and Google Ads, and my ad dashboard clip when I talk about ad money. Make the line ‘they buy your value, story and vibe’ the big moment.",
-   "media": [
-    {
-     "src": "media/user/meta-logo.png",
-     "label": "Meta logo"
-    },
-    {
-     "src": "media/user/google-logo.png",
-     "label": "Google logo"
-    },
-    {
-     "src": "media/user/ad-dashboard.jpg",
-     "label": "Ad-dashboard clip"
-    }
-   ],
-   "did": [
-    "Her logos and clip on her words",
-    "Hindi and English captioned as said"
-   ],
-   "topic": "D2C brands and content",
-   "len": 49.4
-  },
-  {
    "id": "img-takes-band",
    "kind": "pile",
    "raw": [
@@ -716,6 +685,24 @@ window.SITE = {
    "len": 48.5
   },
   {
+   "id": "clip1-chemical-peel-ember",
+   "kind": "video",
+   "raw": "media/raw-clip1.mp4",
+   "poster": "media/raw-clip1.jpg",
+   "rawLabel": "1 take at a mic",
+   "from": "0:55",
+   "to": "0:52",
+   "look": "Ember",
+   "instructions": "",
+   "media": [],
+   "did": [
+    "11 stretches of dead air cut",
+    "Titles on the words that matter"
+   ],
+   "topic": "Before a chemical peel",
+   "len": 52.5
+  },
+  {
    "id": "5am-voice-notes-paper",
    "kind": "audio",
    "raw": [
@@ -737,6 +724,24 @@ window.SITE = {
    "len": 60.0
   },
   {
+   "kind": "video",
+   "raw": "media/raw-clip2.mp4",
+   "poster": "media/raw-clip2.jpg",
+   "rawLabel": "1 desk take",
+   "from": "0:52",
+   "to": "0:50",
+   "instructions": "For creators who use AI. Make the number 30 big, and show every AI tool I name by its logo.",
+   "media": [],
+   "did": [
+    "The number 30 counted up",
+    "An idea tree drawn as he explains"
+   ],
+   "id": "clip2-ai-ideas-premium",
+   "look": "Premium",
+   "topic": "An idea tree, not a list",
+   "len": 50.3
+  },
+  {
    "id": "clip5-marysville-homes-band",
    "kind": "video",
    "raw": "media/raw-clip5.mp4",
@@ -756,22 +761,35 @@ window.SITE = {
    "len": 74.2
   },
   {
-   "id": "clip1-chemical-peel-ember",
+   "id": "raw6-d2c-premium",
    "kind": "video",
-   "raw": "media/raw-clip1.mp4",
-   "poster": "media/raw-clip1.jpg",
-   "rawLabel": "1 take at a mic",
-   "from": "0:55",
-   "to": "0:52",
-   "look": "Ember",
-   "instructions": "",
-   "media": [],
-   "did": [
-    "11 stretches of dead air cut",
-    "Titles on the words that matter"
+   "raw": "media/raw-raw6.mp4",
+   "poster": "media/raw-raw6.jpg",
+   "rawLabel": "1 Hinglish take",
+   "from": "0:50",
+   "to": "0:49",
+   "look": "Premium",
+   "instructions": "This is for D2C founders. Use my Meta and Google logos when I mention Meta Ads and Google Ads, and my ad dashboard clip when I talk about ad money. Make the line ‘they buy your value, story and vibe’ the big moment.",
+   "media": [
+    {
+     "src": "media/user/meta-logo.png",
+     "label": "Meta logo"
+    },
+    {
+     "src": "media/user/google-logo.png",
+     "label": "Google logo"
+    },
+    {
+     "src": "media/user/ad-dashboard.jpg",
+     "label": "Ad-dashboard clip"
+    }
    ],
-   "topic": "Before a chemical peel",
-   "len": 52.5
+   "did": [
+    "Her logos and clip on her words",
+    "Hindi and English captioned as said"
+   ],
+   "topic": "D2C brands and content",
+   "len": 49.4
   },
   {
    "id": "upi-explained-hud",
@@ -791,24 +809,6 @@ window.SITE = {
    ],
    "topic": "How UPI moves money",
    "len": 48.8
-  },
-  {
-   "kind": "video",
-   "raw": "media/raw-clip2.mp4",
-   "poster": "media/raw-clip2.jpg",
-   "rawLabel": "1 desk take",
-   "from": "0:52",
-   "to": "0:50",
-   "instructions": "For creators who use AI. Make the number 30 big, and show every AI tool I name by its logo.",
-   "media": [],
-   "did": [
-    "The number 30 counted up",
-    "An idea tree drawn as he explains"
-   ],
-   "id": "clip2-ai-ideas-premium",
-   "look": "Premium",
-   "topic": "An idea tree, not a list",
-   "len": 50.3
   },
   {
    "kind": "video",
@@ -898,5 +898,28 @@ window.SITE = {
  ],
  "formEndpoint": "https://aether-signups-160853751630.us-central1.run.app/signup",
  "uploadEndpoint": "https://aether-signups-160853751630.us-central1.run.app/upload-url",
- "hitEndpoint": "https://aether-signups-160853751630.us-central1.run.app/hit"
+ "hitEndpoint": "https://aether-signups-160853751630.us-central1.run.app/hit",
+ "captionsOnly": [
+  {
+   "id": "captions-img-takes-band",
+   "full": "img-takes-band",
+   "look": "Band",
+   "topic": "AI tools vs thinking",
+   "len": 48.4
+  },
+  {
+   "id": "captions-clip1-chemical-peel-ember",
+   "full": "clip1-chemical-peel-ember",
+   "look": "Ember",
+   "topic": "Before a chemical peel",
+   "len": 52.4
+  },
+  {
+   "id": "captions-clip2-ai-ideas-premium",
+   "full": "clip2-ai-ideas-premium",
+   "look": "Premium",
+   "topic": "An idea tree, not a list",
+   "len": 50.3
+  }
+ ]
 };

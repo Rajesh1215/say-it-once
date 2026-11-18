@@ -379,3 +379,23 @@ h1 .line { display: block; }
 .faq summary::after { content: "+"; color: var(--kept); font: 500 22px/1 var(--mono); }
 .faq details[open] summary::after { content: "–"; }
 .faq details p { margin: 0 0 18px; color: var(--muted); max-width: 64ch; }
+
+/* just captions: three edits side by side */
+.cap-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 3vw, 32px); }
+.cap-item { margin: 0; display: grid; gap: 12px; justify-items: center; }
+.cap-item .phone { width: min(100%, 300px); border-radius: 26px; box-shadow: 0 0 0 6px #050506, 0 24px 60px rgba(0, 0, 0, .5); position: relative; }
+.cap-item figcaption { font-size: 14px; color: var(--muted); text-align: center; display: grid; gap: 2px; }
+.cap-item figcaption b { color: var(--ink); font: 700 18px/1.2 var(--display); }
+@media (max-width: 860px) {
+  .cap-row { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 62%; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; }
+  .cap-item { scroll-snap-align: start; }
+}
+
+/* the hero: the full edit and its captions-only twin side by side */
+.hero-phone { max-width: 560px; }
+.hero-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.hero-side { display: grid; gap: 10px; justify-items: center; }
+.hero-label { font: 600 11px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--kept); }
+.hero-side:last-child .hero-label { color: var(--muted); }
+.hero-pair .phone { width: 100%; border-radius: 26px; }
+@media (max-width: 960px) { .hero-phone { max-width: 460px; } }
